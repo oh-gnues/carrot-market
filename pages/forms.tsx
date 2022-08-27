@@ -7,6 +7,7 @@ interface LoginForm {
 	username: string;
 	password: string;
 	email: string;
+	errors?: string;
 }
 
 export default function Forms() {
@@ -14,17 +15,21 @@ export default function Forms() {
 		register,
 		handleSubmit,
 		formState: { errors },
+		watch,
+		setValue,
+		setError,
+		reset,
+		resetField
 	} = useForm<LoginForm>({
 		mode: "onChange",
 	});
 	const onValid = (data: LoginForm) => {
 		console.log("im valid baby");
+		resetField("password");
 	};
 	const onInvalid = (errors: FieldErrors) => {
 		console.log(errors);
 	};
-
-	console.log(errors);
 
 	return (
 		<form onSubmit={handleSubmit(onValid, onInvalid)}>
@@ -39,6 +44,8 @@ export default function Forms() {
 				type={"text"}
 				placeholder={"Username"}
 			/>
+
+			{errors.username?.message}
 
 			<input
 				{...register("email", {
@@ -64,6 +71,8 @@ export default function Forms() {
 			/>
 
 			<input type={"submit"} value={"Create Account"} />
+
+			{errors.errors?.message}
 		</form>
 	);
 }
