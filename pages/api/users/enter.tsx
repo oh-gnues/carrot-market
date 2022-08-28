@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import withHandler, { ResponseType } from '@libs/server/withHandler'
 import client from '@libs/server/client'
 import twilio from 'twilio'
+import smtpTransport from '@libs/server/email'
 
 const twilioClient = twilio(process.env.TWILIO_SID, process.env.TWILIO_TOKEN)
 
@@ -30,6 +31,7 @@ async function handler(
     },
   })
 
+  // Sending SMS
   if (phone) {
     const message = await twilioClient.messages.create({
       messagingServiceSid: process.env.TWILIO_MSID,
@@ -37,6 +39,30 @@ async function handler(
       body: `Your login token is ${payload}`,
     })
     console.log(message)
+  }
+
+  // Sending Email
+  if (email) {
+    const mailOptions = {
+      from: process.env.MAIL_ID,
+      to: email,
+      subject: 'Hello',
+      text: `Authentication Code : ${payload}`,
+    }
+    const result = await smtpTransport.sendMail(
+      mailOptions,
+      (error, responses) => {
+        if (error) {
+          console.log(error)
+        } else {
+          console.log(responses)
+        }
+        return null
+      },
+    )
+
+    smtpTransport.close()
+    console.log(result)
   }
 
   return res.json({
