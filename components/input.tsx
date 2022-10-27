@@ -10,16 +10,16 @@ interface InputProps {
 }
 
 export default function Input({
-  label,
-	name,
-	kind = "text",
-	register,
-  type,
-	required,
-}: InputProps) {
+	                              label,
+	                              name,
+	                              kind = "text",
+	                              register,
+	                              type,
+	                              required,
+                              }: InputProps) {
 	return (
 		<div>
-			<label htmlFor={name} className={"mb-1 block text-sm font-medium text-gray-700"}>
+			<label className={"mb-1 block text-sm font-medium text-gray-700"} htmlFor={name}>
 				{label}
 			</label>
 
@@ -52,7 +52,8 @@ export default function Input({
 
 			{kind === "phone" ? (
 				<div className={"rounded-md flex shadow-sm"}>
-					<span className="flex items-center justify-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 select-none text-sm">
+					<span
+						className="flex items-center justify-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 select-none text-sm">
 						+82
 					</span>
 					<input
