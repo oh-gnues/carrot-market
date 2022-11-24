@@ -19,7 +19,7 @@ export default function Layout({title, canGoBack, hasTabBar, children}: LayoutPr
 	return (
 		<div>
 			<div
-				className={"bg-white w-full h-12 max-w-xl justify-center text-lg px-10 font-medium fixed text-gray-800 border-b tp-0 flex items-cneter"}>
+				className={"bg-white w-full h-12 max-w-xl justify-center text-lg px-10 font-medium fixed text-gray-800 border-b tp-0 flex items-center"}>
 				{canGoBack ? (
 					<button onClick={onClick} className={"absolute left-4"}>
 						<svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
